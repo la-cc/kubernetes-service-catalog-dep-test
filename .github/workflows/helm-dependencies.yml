@@ -1,0 +1,33 @@
+name: helm-dependencies
+
+on:
+  # enable manual trigger
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/helm-dependencies.yml"
+      - "dependencies.yaml"
+
+jobs:
+  helm-dependencies:
+    name: Helm Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Helm Dependencies
+        uses: la-cc/gh-actions/helm-dependencies@v0.0.5
+        with:
+          config-path: dependencies.yaml
+          user-email: "meep-the-helm-bot@users.noreply.github.com"
+          user-name: "Meep"
+          default-branch: "main"
+          dry-run: false
+          github-run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
