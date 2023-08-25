@@ -7,7 +7,7 @@ on:
     - cron: "0 0 * * *"
   push:
     branches:
-      - main
+      - development
     paths:
       - ".github/workflows/helm-dependencies.yml"
       - "dependencies.yaml"
@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: development
 
       - name: Helm Dependencies
         uses: la-cc/gh-actions/helm-dependencies@v0.0.8
@@ -28,7 +28,7 @@ jobs:
           config-path: dependencies.yaml
           user-email: "meep-the-helm-bot@users.noreply.github.com"
           user-name: "Meep"
-          default-branch: "main"
+          default-branch: "development"
           dry-run: false
           github-run: true
         env:
